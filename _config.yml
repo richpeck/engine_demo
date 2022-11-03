@@ -4,6 +4,10 @@
 # Tutorial here: 
 # https://biodata-club.github.io/githubPagesTutorial
 
+# Error Fixes
+# Github Metadata plugin requires API key https://github.com/github/pages-gem/issues/399#issuecomment-361091215
+repository: richpeck/engine_demo # Required to build with Github Actions
+
 # System
 # Overall options for the entire site
 locale:   en_GB
