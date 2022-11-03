@@ -8,7 +8,7 @@
 
 // Start
 // This is the main ingress point and should be used to provide functionality for the app.
-class Engine {
+export class Engine {
 
     // Constructor
     // Used to populate initial state of the object (IE Engine.world etc)
