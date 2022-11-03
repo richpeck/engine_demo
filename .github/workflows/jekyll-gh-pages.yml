@@ -45,14 +45,21 @@ jobs:
         uses: limjh16/jekyll-action-ts@v2
         with:
           enable_cache: false
+          format_output: true
+          prettier_opts: '{ "useTabs": true }'
 
-      - name: 🚀 Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
-          keep_files: true
-          allow_empty_commit: true
+      #- name: 🚀 Deploy
+      #  uses: peaceiris/actions-gh-pages@v3
+      #  with:
+      #    github_token: ${{ secrets.GITHUB_TOKEN }}
+      #    publish_dir: ./_site
+      #    keep_files: true
+      #    allow_empty_commit: true
+  
+      # Specify runner + deployment step
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
 
   # Deployment job
   #deploy:
