@@ -11,7 +11,6 @@ on:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: write # required to get the deploy script to work (https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-first-deployment-with-github_token)
   pages: write
   id-token: write
 
@@ -25,6 +24,9 @@ jobs:
   build:
     name:    Build
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
     
       # Get Git repo
@@ -48,16 +50,14 @@ jobs:
           format_output: true
           prettier_opts: '{ "useTabs": true }'
 
-      #- name: 🚀 Deploy
-      #  uses: peaceiris/actions-gh-pages@v3
-      #  with:
-      #    github_token: ${{ secrets.GITHUB_TOKEN }}
-      #    publish_dir: ./_site
-      #    keep_files: true
-      #    allow_empty_commit: true
+      # Artifact
+      - uses: actions/upload-artifact@v3
+        with:
+          name: github-pages
+          path: ./_site # or path/to/artifact
   
       # Specify runner + deployment step
-      - name: Deploy to GitHub Pages
+      - name: 🚀 Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
 
