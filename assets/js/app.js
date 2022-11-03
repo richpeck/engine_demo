@@ -1,29 +1,19 @@
 /*
-    ----------------------------
-    ---------------------------
-          ___              
-         / _ \             
-        / /_\ \_ __  _ __  
-        |  _  | '_ \| '_ \ 
-        | | | | |_) | |_) |
-        \_| |_/ .__/| .__/ 
-            | |   | |    
-            |_|   |_|    
-
-    ----------------------------
-    ----------------------------
-
+    RPECK 03/11/2022
     Main ingress point into the system - used to provide functionality, game loop etc.
+*/
 
-    ----------------------------
-    ----------------------------
-
- */
+// Libs 
+import "engine"; // loads the engine
 
 // Start
 // This is the main ingress point and should be used to provide functionality for the app.
 document.addEventListener("DOMContentLoaded", function(event) { 
     
-    console.log('test');
+    // Engine
+    var engine = new Engine;
+
+    // Initialize
+    engine.init();
 
 });
