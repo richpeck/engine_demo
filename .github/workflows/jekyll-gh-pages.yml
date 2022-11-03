@@ -48,8 +48,22 @@ jobs:
         with:
           enable_cache: true
 
+      - run: ls -la ./_site
+
       - name: 🚀 Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
+  # Deployment job
+  #deploy:
+  #  name: Deploy
+  #  runs-on: ubuntu-latest
+  #  needs: build
+  #  permissions:
+   #   contents: write # required to get the deploy script to work (https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-first-deployment-with-github_token)
+   # steps:
+    #  - name: 🚀 Deploy
+     # - uses: peaceiris/actions-gh-pages@v3
+      #  with:
+       #   github_token: ${{ secrets.GITHUB_TOKEN }}
