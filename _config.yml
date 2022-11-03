@@ -1,0 +1,34 @@
+# Github Pages
+# Various options to ensure the Github repository is able to be displayed properly in GH Pages
+
+# Tutorial here: 
+# https://biodata-club.github.io/githubPagesTutorial
+
+# System
+# Overall options for the entire site
+locale:   en_GB
+timezone: Europe/London
+
+# General
+# Give us the ability to manage the overall structuer of the site etc
+title: JS Engine Demo
+description: Demonstration engine for basic 3D engine
+
+# Plugins
+# https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll#plugins 
+plugins:
+  - "jekyll-github-metadata" # required to change the header area
+  - "jekyll-seo-tag" # allows us to edit the various meta tags for each page
+  - "jekyll-sitemap" # Used to provide robots.txt etc
+
+# Exclude
+# Exclude these files from the build.
+exclude:
+  - .github
+  - .editorconfig
+  - .gitignore
+  - _config.yml
+  
+# Github
+github:
+  is_project_page: false

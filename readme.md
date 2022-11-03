@@ -1,7 +1,5 @@
 #  Demo code to make a simple 3D engine with JS
---
 Works by taking a standard webpage and implementing a number of elements which are used to update the UI etc
-Hosted on Github Pages
 
 # Structure 
 - Engine (main app)
