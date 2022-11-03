@@ -4,9 +4,9 @@
 */
 
 // Libs 
-//import { World } from './world.js'; // loads the World (IE backend functionality to calculate position of player etc)
-//import { Player } from './player.js'; // loads the Player
-//import { HUD } from './hud.js'; // loads the HUD
+import { World } from './world.js';     // loads the World (IE backend functionality to calculate position of player etc)
+import { Player } from './player.js';   // loads the Player
+import { HUD } from './hud.js';         // loads the HUD
 
 // Start
 // This is the main ingress point and should be used to provide functionality for the app.
@@ -15,6 +15,11 @@ export class Engine {
     // Constructor
     // Used to populate initial state of the object (IE Engine.world etc)
     constructor() {
+
+        // Objects
+        this.world  = new World;    // engine.world.x
+        this.player = new Player;   // engine.player.y
+        this.hud    = new HUD;      // engine.hud.z
 
         // Vars
         this.element      = document.getElementById('engine');
@@ -26,7 +31,6 @@ export class Engine {
     // Invokes the engine and allows us to create the conditions through which it will start to run.
     init() {
         console.log('Engine Started');
-        this.element.style.display = "none";
     }
 
     // Stop
@@ -37,8 +41,6 @@ export class Engine {
 
     // Loading
     // Simple loading script used to define when a 
-    loading() {
-
-    }
+    loading() {}
 
   }
