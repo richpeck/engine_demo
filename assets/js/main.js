@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     // Vars
     // Used to create 'global' values which can be passed to the engine (allows us to create a settings thing later if needed)
-    const debug = false;
+    const debug = true;
     
     // Engine
     var engine = new Engine(debug);
