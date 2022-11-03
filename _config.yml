@@ -32,7 +32,7 @@ plugins:
   - "jekyll-github-metadata" # required to change the header area
   - "jekyll-seo-tag" # allows us to edit the various meta tags for each page
   - "jekyll-sitemap" # Used to provide robots.txt etc
-  - "jekyll-multiple-languages-plugin" # provides translatability for our app
+  #- "jekyll-multiple-languages-plugin" # provides translatability for our app
 
 # Exclude
 # Exclude these files from the build.
