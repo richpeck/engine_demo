@@ -51,10 +51,7 @@ jobs:
           prettier_opts: '{ "useTabs": true }'
 
       # Artifact
-      - uses: actions/upload-artifact@v3
-        with:
-          name: github-pages
-          path: ./_site # or path/to/artifact
+      - uses: actions/upload-pages-artifact@v3
   
       # Specify runner + deployment step
       - name: 🚀 Deploy to GitHub Pages
