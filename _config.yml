@@ -41,7 +41,7 @@ exclude:
   - .editorconfig
   - .gitignore
   - _config.yml
-  - vendor
+  - vendor # required to avoid issue with build using custom GH Action (https://github.com/jekyll/jekyll/issues/5267#issuecomment-241379902)
   
 # Github
 github:
