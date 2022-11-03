@@ -46,6 +46,7 @@ jobs:
         with:
           enable_cache: true
 
+      - run: pwd
       - run: ls -la
       - run: ls -la _site    
 
@@ -53,7 +54,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
+          publish_dir: _site
           keep_files: true
 
   # Deployment job
