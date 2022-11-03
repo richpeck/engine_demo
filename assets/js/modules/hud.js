@@ -13,7 +13,7 @@ export class HUD {
 
         // Properties
         this.element     = document.getElementById('hud');
-        this.bottom_area = element.querySelector('bottom_area');
+        this.bottom_area = this.element.querySelector('bottom_area');
 
     }
 
