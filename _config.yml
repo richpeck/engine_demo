@@ -14,6 +14,14 @@ timezone: Europe/London
 title: JS Engine Demo
 description: Demonstration engine for basic 3D engine
 
+# Translations
+# Allows us to use translatable text throughout the app
+languages: ["en"]
+exclude_from_localizations: ["assets"]
+defaultLang: en
+languageNames:
+  en: English
+
 # Plugins
 # https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll#plugins 
 plugins:
