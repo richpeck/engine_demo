@@ -33,13 +33,13 @@ export class Engine {
     // Init
     // Invokes the engine and allows us to create the conditions through which it will start to run.
     init() {
-        if(this.debug) console.log('{{ site.title | default: "test" }}');
+        if(this.debug) console.log('{% t engine.messages.started %}');
     }
 
     // Stop
     // Closes the engine, stops and functionality and brings the application to a halt
     stop() {
-        if(this.debug) console.log('{{ site.title | default: "test" }}');
+        if(this.debug) console.log('{% t engine.messages.stopped %}');
     }
 
     // Loading
