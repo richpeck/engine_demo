@@ -4,8 +4,8 @@
 */
 
 // Libs 
-//import { World } from './world.js'; // loads the HUD
-//import { Player } from './player.js'; // loads the HUD
+//import { World } from './world.js'; // loads the World (IE backend functionality to calculate position of player etc)
+//import { Player } from './player.js'; // loads the Player
 //import { HUD } from './hud.js'; // loads the HUD
 
 // Start
@@ -14,13 +14,19 @@ export class Engine {
 
     // Constructor
     // Used to populate initial state of the object (IE Engine.world etc)
-    constructor() {}
+    constructor() {
+
+        // Vars
+        this.element      = document.getElementById('engine');
+        this.loadingClass = 'loading';
+
+    }
 
     // Init
     // Invokes the engine and allows us to create the conditions through which it will start to run.
     init() {
         console.log('Engine Started');
-        this.stop();
+        this.element.style.display = "none";
     }
 
     // Stop
