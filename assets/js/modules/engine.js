@@ -14,14 +14,15 @@ export class Engine {
 
     // Constructor
     // Used to populate initial state of the object (IE Engine.world etc)
-    constructor() {
+    constructor(debug) {
 
         // Objects
         this.world  = new World;    // engine.world.x
         this.player = new Player;   // engine.player.y
         this.hud    = new HUD;      // engine.hud.z
 
-        // Vars
+        // Properties
+        this.debug        = debug;
         this.element      = document.getElementById('engine');
         this.loadingClass = 'loading';
 
@@ -30,13 +31,13 @@ export class Engine {
     // Init
     // Invokes the engine and allows us to create the conditions through which it will start to run.
     init() {
-        console.log('Engine Started');
+        if(this.debug) console.log('Engine Started.');
     }
 
     // Stop
     // Closes the engine, stops and functionality and brings the application to a halt
     stop() {
-        console.log('Engine Stopped');
+        if(this.debug) console.log('Engine Started.');
     }
 
     // Loading
