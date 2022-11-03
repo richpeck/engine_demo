@@ -4,7 +4,9 @@
 */
 
 // Libs 
-
+//import { World } from './world.js'; // loads the HUD
+//import { Player } from './player.js'; // loads the HUD
+//import { HUD } from './hud.js'; // loads the HUD
 
 // Start
 // This is the main ingress point and should be used to provide functionality for the app.
@@ -15,8 +17,22 @@ export class Engine {
     constructor() {}
 
     // Init
+    // Invokes the engine and allows us to create the conditions through which it will start to run.
     init() {
-        console.log('Engine Started')''
+        console.log('Engine Started');
+        this.stop();
+    }
+
+    // Stop
+    // Closes the engine, stops and functionality and brings the application to a halt
+    stop() {
+        console.log('Engine Stopped');
+    }
+
+    // Loading
+    // Simple loading script used to define when a 
+    loading() {
+
     }
 
   }
