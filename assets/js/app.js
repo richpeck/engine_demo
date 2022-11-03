@@ -4,7 +4,7 @@
 */
 
 // Libs 
-import "engine"; // loads the engine
+import { Engine } from 'engine.js'; // loads the engine
 
 // Start
 // This is the main ingress point and should be used to provide functionality for the app.
