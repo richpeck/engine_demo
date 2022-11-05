@@ -1,10 +1,5 @@
-/*
-    RPECK 03/11/2022
-    World object -- used to load the 'world' into existence (entire worldmap, co-ordinates etc)
-*/
-
-// Start
-// This is the main ingress point and should be used to provide functionality for the app.
+// World
+// Main processor for the map / worldview of the app -- computes map data and provides interface to user
 export class World {
 
     // Constructor

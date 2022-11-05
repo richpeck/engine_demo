@@ -1,10 +1,5 @@
-/*
-    RPECK 03/11/2022
-    Player object -- used to provide player interactivity (basically moving and rotating the player relative to the world)
-*/
-
-// Start
-// This is the main ingress point and should be used to provide functionality for the app.
+// Player
+// Class to invoke the player relative to the world in the engine
 export class Player {
 
     // Constructor
@@ -12,8 +7,11 @@ export class Player {
     constructor(x = 0, y = 0) {
 
         // Properties
-        this.x = x; // player.x
-        this.y = y; // player.y
+        this.x        = x; // player.x
+        this.y        = y; // player.y
+        
+        this.velocity = 0; // player.velocity
+
 
     }
 

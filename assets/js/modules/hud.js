@@ -1,10 +1,5 @@
-/*
-    RPECK 03/11/2022
-    HUD object -- used primarily to showcase various points to the user (ammo, armour, player position, map, etc)
-*/
-
-// Start
-// This is the main ingress point and should be used to provide functionality for the app.
+// HUD
+// Stores & displays various pieces of data for the app (ammo, health etc)
 export class HUD {
 
     // Constructor

@@ -1,17 +1,13 @@
 ---
 ---
-/*
-    RPECK 03/11/2022
-    Engine object -- used primarily to regulate the flow of the app, load in instances etc
-*/
 
 // Libs 
 import { World } from './world.js';     // loads the World (IE backend functionality to calculate position of player etc)
 import { Player } from './player.js';   // loads the Player
 import { HUD } from './hud.js';         // loads the HUD
 
-// Start
-// This is the main ingress point and should be used to provide functionality for the app.
+// Engine
+// Main application ingress point for the app -- handles user interactivity and dependent objects
 export class Engine {
 
     // Constructor
@@ -33,7 +29,8 @@ export class Engine {
     // Init
     // Invokes the engine and allows us to create the conditions through which it will start to run.
     init() {
-        if(this.debug) console.log('{% t engine.messages.started %} test');
+        if(this.debug) console.log('{% t engine.messages.started %}');
+        console.log('{{ site.data.map.name }}');
     }
 
     // Stop
