@@ -1,21 +1,25 @@
-/*
-    RPECK 03/11/2022
-    Main ingress point into the system - used to provide functionality, game loop etc.
-*/
-
 // Libs 
 import { Engine } from './modules/engine.js'; // loads the engine
 
-// Start
-// This is the main ingress point and should be used to provide functionality for the app.
+// Main
+// Primary ingress point and should be used to provide functionality for the app.
 document.addEventListener("DOMContentLoaded", function(event) { 
 
-    // Vars
-    // Used to create 'global' values which can be passed to the engine (allows us to create a settings thing later if needed)
-    const debug = true;
+    // Debug
+    const debug = true; // Turn debug on or off (bool)
+
+    // Keys
+    // Used to map keys to various input triggers within the space (handled by engine)
+    // https://stackoverflow.com/a/44213036/1143732
+    const keys  = { 
+        up:     "KeyW",
+        down:   "KeyS",
+        left:   "KeyA",
+        right:  "KeyD"
+    }
     
     // Engine
-    var engine = new Engine(debug);
+    var engine = new Engine(debug, keys);
 
     // Initialize
     engine.init();
