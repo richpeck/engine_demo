@@ -1,7 +1,7 @@
 engine:
   messages:
-    started: Engine Started.
-    stopped: Engine Stopped.
+    started: Engine Started
+    stopped: Engine Stopped
   keys:
     up:    KeyUp
     down:  KeyDown

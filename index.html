@@ -7,13 +7,15 @@ permalink: /
     The HUD is designed to sit on top of everything and accounts for thing such as the map, ammo tracker etc.
 {% endcomment %}
 <div id="hud">
+
+    {% comment %} Messages {% endcomment %}
+    <div class="messages"></div>
     
-    <div class="messages">&nbsp;</div>
-    
-    <div class="player_info">
-        <div class="health">&nbsp;</div>
-        <div class="armour">&nbsp;</div>
-        <div class="ammo">&nbsp;</div>
+    {% comment %} Info {% endcomment %}
+    <div class="info">
+        <div class="health"></div>
+        <div class="armour"></div>
+        <div class="ammo"></div>
     </div>
 
 </div>

@@ -42,7 +42,7 @@ export class Engine {
         // Inputs 
         // Track inputs from the user and map to the keys defined in the constructor
         // https://stackoverflow.com/a/60072661/1143732
-        this.element.addEventListener("keydown", function(e){
+        document.addEventListener("keydown", function(e){
             const key = e.key;
 
             switch(key) {
