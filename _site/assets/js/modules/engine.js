@@ -1,6 +1,3 @@
----
----
-
 // Libs 
 import { World } from './world.js';     // loads the World (IE backend functionality to calculate position of player etc)
 import { Player } from './player.js';   // loads the Player
@@ -38,7 +35,7 @@ export class Engine {
     init() {
 
         // Message
-        if(this.debug) console.log('{% t engine.messages.started %}');
+        if(this.debug) console.log('Engine Started');
         
         // Game Loop
         window.requestAnimationFrame(this.loop);
@@ -50,7 +47,7 @@ export class Engine {
     stop() {
 
         // Message
-        if(this.debug) console.log('{% t engine.messages.stopped %}');
+        if(this.debug) console.log('Engine Stopped');
     }
 
     // Loop
@@ -80,16 +77,16 @@ export class Engine {
 
             switch(key) {
                 case this.keyUp:
-                    if(this.debug) console.log('{% t engine.messages.keys.up %}');
+                    if(this.debug) console.log('KeyUp');
                     break;
                 case this.keyDown:
-                    if(this.debug) console.log('{% t engine.messages.keys.down %}');
+                    if(this.debug) console.log('KeyDown');
                     break;
                 case this.keyLeft:
-                    if(this.debug) console.log('{% t engine.messages.keys.left %}');
+                    if(this.debug) console.log('KeyLeft');
                     break;
                 case this.keyRight:
-                    if(this.debug) console.log('{% t engine.messages.keys.right %}');
+                    if(this.debug) console.log('Keyright');
                     break;
             }
 

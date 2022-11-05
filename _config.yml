@@ -12,7 +12,7 @@ repository: richpeck/engine_demo # Required to build with Github Actions
 # Overall options for the entire site
 locale:   en_GB
 timezone: Europe/London
-baseurl: /engine_demo # required to get relative_url working with our custom build script
+#baseurl: /engine_demo # required to get relative_url working with our custom build script
 
 # General
 # Give us the ability to manage the overall structuer of the site etc
