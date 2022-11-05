@@ -21,6 +21,7 @@ export class Engine {
 
         // Properties
         this.debug        = debug;
+        this.lastRender   = 0;
         this.element      = document.getElementById('engine');
         this.loadingClass = 'loading';
 
@@ -39,6 +40,36 @@ export class Engine {
         // Message
         if(this.debug) console.log('{% t engine.messages.started %}');
         
+        // Game Loop
+        window.requestAnimationFrame(this.loop);
+
+    }
+
+    // Stop
+    // Closes the engine, stops and functionality and brings the application to a halt
+    stop() {
+
+        // Message
+        if(this.debug) console.log('{% t engine.messages.stopped %}');
+    }
+
+    // Loop
+    // This is the main loop to perform logic for the engine
+    loop() {
+
+         // Message
+         if(this.debug) console.log('test');
+
+    }
+
+    // Loading
+    // Simple loading script used to define when a 
+    loading() {}
+
+    // Inputs 
+    // Used to capture user inputs (keyboard)
+    input() {
+
         // Inputs 
         // Track inputs from the user and map to the keys defined in the constructor
         // https://stackoverflow.com/a/60072661/1143732
@@ -63,20 +94,5 @@ export class Engine {
         });
 
     }
-
-    // Stop
-    // Closes the engine, stops and functionality and brings the application to a halt
-    stop() {
-
-        // Message
-        if(this.debug) console.log('{% t engine.messages.stopped %}');
-    }
-
-    // Loading
-    // Simple loading script used to define when a 
-    loading() {}
-
-    // Inputs 
-    // Used to capture user inputs (keyboard)
 
   }
