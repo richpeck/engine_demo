@@ -24,9 +24,6 @@ jobs:
   build:
     name:    Build
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
     
       # Get Git repo
@@ -69,7 +66,7 @@ jobs:
         uses: actions/deploy-pages@v1
 
       # Delete Artifact
-      - name: 🧹 Cleaning Up Artefact
+      - name: 🧹 Clean Up
         uses: geekyeggo/delete-artifact@v2
         with:
             name: github-pages
