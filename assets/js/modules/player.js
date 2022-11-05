@@ -7,10 +7,11 @@ export class Player {
     constructor(x = 0, y = 0) {
 
         // Properties
-        this.x        = x; // player.x
-        this.y        = y; // player.y
-        
-        this.velocity = 0; // player.velocity
+        this.x              = x; // player.x
+        this.y              = y; // player.y
+        this.angle          = 0; // player.angle
+        this.velocity       = 0;  // player.velocity
+        this.angle_velocity = 0; // player.angle_velocity
 
 
     }

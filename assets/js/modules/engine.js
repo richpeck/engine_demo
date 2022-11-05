@@ -30,7 +30,7 @@ export class Engine {
     // Invokes the engine and allows us to create the conditions through which it will start to run.
     init() {
         if(this.debug) console.log('{% t engine.messages.started %}');
-        console.log('{{ site.data.map | json }}');
+        console.log('{{ site.data.map }}');
     }
 
     // Stop
