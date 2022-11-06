@@ -14,10 +14,6 @@ export class HUD {
 
     // Init
     // Required to get the player object 
-    init() {
-
-        console.log('test');
-
-    }
+    init() {}
 
   }

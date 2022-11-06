@@ -4,6 +4,5 @@
 */
 
 #world {
-    height: 100%;
-    width: 100%;
+    display: block; /* removes scrollbars https://stackoverflow.com/a/8486324/1143732 */
 }

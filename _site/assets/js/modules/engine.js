@@ -52,9 +52,7 @@ export class Engine {
 
         // Player 
         // Invokes player object and populates them in the world
-        this.player.init();
-
-        console.log( this.world.element );
+        this.player.init( this.world.element ); // requires the 'world' element
 
         // HUD 
         // Invokes the HUD and populates with initial data
