@@ -3,7 +3,9 @@ engine:
     started: Engine Started
     stopped: Engine Stopped
     keys:
-      up:    KeyUp
-      down:  KeyDown
-      left:  KeyLeft
-      right: Keyright
+      up:    Up Pressed
+      down:  Down Pressed
+      left:  Left Pressed
+      right: Right Pressed
+    loop:
+      active: Loop Active

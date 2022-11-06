@@ -9,7 +9,7 @@ export class Engine {
 
     // Constructor
     // Used to populate initial state of the object (IE Engine.world etc)
-    constructor(debug, keys) {
+    constructor(debug = false, keys = { up: "w", down: "s", left: "a", right: "d" }) {
 
         // Objects
         this.world  = new World;    // engine.world
@@ -23,10 +23,18 @@ export class Engine {
         this.loadingClass = 'loading';
 
         // Keys
-        this.keyUp    = keys["up"];
+        // Used to map keys to various input triggers within the space (handled by engine)
+        // https://stackoverflow.com/a/44213036/1143732
+        this.keys = { up: keys["up"], down: keys["down"], left: keys["left"], right:  keys["right"] };
+        Object.freeze(keys); // ensure nobody can change it
+
         this.keyDown  = keys["down"];
         this.keyLeft  = keys["left"];
-        this.keyRight = keys["right"];       
+        this.keyRight = keys["right"];
+
+        // Inputs
+        // This is used to capture current active keys (IE "up" and "left" - allowing us to define the velocity in the loop)
+        this.active_keys = new Set; // this is ES6 only and allows us to manipulate the values (change to array etc) easier
 
     }
 
@@ -36,9 +44,14 @@ export class Engine {
 
         // Message
         if(this.debug) console.log('Engine Started');
+
+        // Input
+        // Activates inputs, allowing us to trigger actions depending on what the user does
+        this.input();
         
-        // Game Loop
-        window.requestAnimationFrame(this.loop);
+        // Loop
+        // Runs the loop using the Engine as the basis for doing so (IE gives us access to this object)
+        //this.loop();
 
     }
 
@@ -54,44 +67,77 @@ export class Engine {
     // This is the main loop to perform logic for the engine
     loop() {
 
-         // Message
-         console.log('test');
+        // Message
+        if(this.debug) console.log('Loop Active');
+
+        // Vars
+        var self = this;
+
+        // Function
+        // This was created because you, basically, need to reference the loop constantly
+        function frame(){
+            console.log( self.active_keys );
+            window.requestAnimationFrame(frame);
+        }
+
+        // Inputs
+        window.requestAnimationFrame(frame);
 
     }
-
-    // Loading
-    // Simple loading script used to define when a 
-    loading() {}
 
     // Inputs 
     // Used to capture user inputs (keyboard)
     input() {
 
+        // Vars
+        var self     = this;
+        var messages = {
+            up:     'Up Pressed',
+            down:   'Down Pressed',
+            left:   'Left Pressed',
+            right:  'Right Pressed'
+        }
+
         // Inputs 
         // Track inputs from the user and map to the keys defined in the constructor
         // https://stackoverflow.com/a/60072661/1143732
-        document.addEventListener("keydown", function(e){
-            const key = e.key;
+        function update_inputs(e) {
+            
+            // Vars 
+            var keys    = Object.keys(self.keys);
+            var values  = Object.values(self.keys);
+            var action  = e.type;
 
-            console.log(key);
+            // Logic
+            // First tests to see if the 'pressed' key is in our key list and then triggers the appropriate functionality 
+            if(values.includes(e.key)) {;
 
-            switch(key) {
-                case this.keyUp:
-                    if(this.debug) console.log('KeyUp');
-                    break;
-                case this.keyDown:
-                    if(this.debug) console.log('KeyDown');
-                    break;
-                case this.keyLeft:
-                    if(this.debug) console.log('KeyLeft');
-                    break;
-                case this.keyRight:
-                    if(this.debug) console.log('Keyright');
-                    break;
+                // Vars
+                var index     = values.indexOf(e.key);
+                var direction = keys[index];
+
+                // Debug
+                if(self.debug) console.log( messages[direction] );
+                
+                // Logic
+                switch(action) {
+                    case 'keydown':
+                        self.active_keys.add(direction); 
+                        break;
+                    case 'keyup':
+                        self.active_keys.delete(direction); 
+                        break;
+                }
+
             }
 
-        });
+        }
+
+        // Handlers
+        // Extracted into function so don't need to replicate functionality
+        window.addEventListener("keydown", update_inputs);
+        window.addEventListener("keyup", update_inputs);     
 
     }
 
-  }
+}
