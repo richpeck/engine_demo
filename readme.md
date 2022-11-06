@@ -11,5 +11,14 @@ Engine (main app)
 ├── other stuff
 ```
 
-Each object is invoked within the context of the Engine --> IE "$engine = Engine.new; $player = $engine.player.new"
-The point is to initialize the engine and within that instance, create a new instance of a player, world etc
+Each object is invoked within the context of the Engine --> IE "$engine = Engine.new; $player = $engine.player.new".
+
+The point is to initialize the engine and within that instance, create a new instance of a player, world etc.
+
+--
+
+# Engine
+
+The main ingress point into the app is the `Engine` class.
+
+This is invoked in the HTML page and is designed to handle user inputs.

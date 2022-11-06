@@ -4,11 +4,12 @@ export class World {
 
     // Constructor
     // Used to populate the world and allow us to interact with it
-    constructor(debug = false) {
+    constructor(debug = false, engine_element = null) {
 
       // Vars
-      this.debug   = debug;
-      this.element = document.getElementById('canvas') || false;
+      this.debug          = debug;
+      this.element        = document.getElementById('canvas') || false;
+      this.engine_element = engine_element || document.getElementById('engine');
 
     }
 
@@ -22,7 +23,25 @@ export class World {
       // Element
       // If element does not exists, populate it in the DOM
       if(!this.element) {
-        console.log("No Element!");
+
+        // Debug
+        if(this.debug) console.log('No Element');
+        
+        // Create Element
+        this.element = document.createElement("canvas");
+        this.element.id = "world";
+
+        // Styling of Canvas (may need to change this)
+        var ctx = this.element.getContext("2d");
+        ctx.fillStyle = "blue";
+        ctx.fillRect(0, 0, this.element.width, this.element.height);
+
+        // Attach to Engine
+        this.engine_element.appendChild(this.element);
+
+        // Debug
+        if(this.debug) console.log('Element Created');
+
       }
 
       // Message

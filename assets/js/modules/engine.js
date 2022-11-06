@@ -12,16 +12,19 @@ export class Engine {
 
     // Constructor
     // Used to populate initial state of the object (IE Engine.world etc)
-    constructor(debug = false, keys = { up: "w", down: "s", left: "a", right: "d" }) {
+    constructor(debug = false, keys = { up: "w", down: "s", left: "a", right: "d" }, velocity_value = 10, angle_velocity_value = 5) {
 
         // Properties
-        this.debug        = debug;
-        this.lastRender   = 0;
+        this.debug                = debug;
+        this.lastRender           = 0;
+        this.element              = document.getElementById('engine');
+        this.velocity_value       = velocity_value;
+        this.angle_velocity_value = angle_velocity_value;
 
         // Objects
-        this.world  = new World(this.debug);    // engine.world
-        this.player = new Player(this.debug);   // engine.player
-        this.hud    = new HUD(this.debug);      // engine.hud
+        this.world  = new World(this.debug, this.element);                                                // engine.world
+        this.player = new Player(this.debug, null, null, this.velocity_value, this.angle_velocity_value); // engine.player
+        this.hud    = new HUD(this.debug);                                                                // engine.hud
 
         // Keys
         // Used to map keys to various input triggers within the space (handled by engine)
@@ -49,6 +52,16 @@ export class Engine {
         // World
         // Builds and populates the world (IE draws canvas etc)
         this.world.init();
+
+        // Player 
+        // Invokes player object and populates them in the world
+        this.player.init();
+
+        console.log( this.world.element );
+
+        // HUD 
+        // Invokes the HUD and populates with initial data
+        this.hud.init();
         
         // Loop
         // Runs the loop using the Engine as the basis for doing so (IE gives us access to this object)
@@ -82,12 +95,9 @@ export class Engine {
             // This gives us a benchmark against which to manage the 
             if(self.last_render == 0) self.last_render = timestamp;
 
-            // Elapsed
-            // This gives us the time since the last frame
-            //const elapsed = self.last_render - timestamp;
-
             // Player
             // Update player attributes so they are able to traverse the world
+            self.player.update();
 
             // Redraw
             // Updates the canvas with new co-ordinates

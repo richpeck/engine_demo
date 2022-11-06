@@ -14,3 +14,7 @@ engine:
       started: World Started
       no_element: No Element
       create_element: Creating Element
+      element_created: Element Created
+    player: 
+      started: Player Started
+      starting: Player Starting
