@@ -9,3 +9,6 @@ engine:
       right: Right Pressed
     loop:
       active: Loop Active
+    world:
+      starting: World Starting
+      started: World Started

@@ -14,26 +14,20 @@ export class Engine {
     // Used to populate initial state of the object (IE Engine.world etc)
     constructor(debug = false, keys = { up: "w", down: "s", left: "a", right: "d" }) {
 
-        // Objects
-        this.world  = new World;    // engine.world
-        this.player = new Player;   // engine.player
-        this.hud    = new HUD;      // engine.hud
-
         // Properties
         this.debug        = debug;
         this.lastRender   = 0;
-        this.element      = document.getElementById('engine');
-        this.loadingClass = 'loading';
+
+        // Objects
+        this.world  = new World(this.debug);    // engine.world
+        this.player = new Player(this.debug);   // engine.player
+        this.hud    = new HUD(this.debug);      // engine.hud
 
         // Keys
         // Used to map keys to various input triggers within the space (handled by engine)
         // https://stackoverflow.com/a/44213036/1143732
         this.keys = { up: keys["up"], down: keys["down"], left: keys["left"], right:  keys["right"] };
         Object.freeze(keys); // ensure nobody can change it
-
-        this.keyDown  = keys["down"];
-        this.keyLeft  = keys["left"];
-        this.keyRight = keys["right"];
 
         // Inputs
         // This is used to capture current active keys (IE "up" and "left" - allowing us to define the velocity in the loop)
@@ -51,10 +45,14 @@ export class Engine {
         // Input
         // Activates inputs, allowing us to trigger actions depending on what the user does
         this.input();
+
+        // World
+        // Builds and populates the world (IE draws canvas etc)
+        this.world.init();
         
         // Loop
         // Runs the loop using the Engine as the basis for doing so (IE gives us access to this object)
-        //this.loop();
+        this.loop();
 
     }
 
@@ -78,8 +76,24 @@ export class Engine {
 
         // Function
         // This was created because you, basically, need to reference the loop constantly
-        function frame(){
-            console.log( self.active_keys );
+        function frame(timestamp){
+
+            // Last render
+            // This gives us a benchmark against which to manage the 
+            if(self.last_render == 0) self.last_render = timestamp;
+
+            // Elapsed
+            // This gives us the time since the last frame
+            //const elapsed = self.last_render - timestamp;
+
+            // Player
+            // Update player attributes so they are able to traverse the world
+
+            // Redraw
+            // Updates the canvas with new co-ordinates
+            self.world.update();
+
+            // Repeat
             window.requestAnimationFrame(frame);
         }
 
