@@ -7,20 +7,20 @@ export class Player {
     constructor(debug = false, x = 0, y = 0, velocity_value = 10, angle_velocity_value = 5) {
 
         // Properties
-        this.x              = x; // player.x
-        this.y              = y; // player.y
-        this.angle          = 0; // player.angle
-        this.velocity       = 0; // player.velocity (forward/backward speed. IE 30)
-        this.angle_velocity = 0; // player.angle_velocity (angle traversal speed. IE -0.1)
+        this.x              = x;                    // player.x
+        this.y              = y;                    // player.y
+        this.angle          = 0;                    // player.angle
+        this.velocity       = velocity_value;       // player.velocity (forward/backward speed. IE 30)
+        this.angle_velocity = angle_velocity_value; // player.angle_velocity (angle traversal speed. IE -0.1)
 
         // Extra
-        this.world_element = null;
+        this.world_element = undefined;
 
     }
 
     // Init
     // Required to get the player object 
-    init(world_element = null) {
+    init(world_element = undefined) {
 
         // Starting Message
         if(this.debug) console.log('{% t engine.messages.player.starting %}');
@@ -41,7 +41,39 @@ export class Player {
 
     // Update
     // Update the player's position in the world
-    update() {}
+    update(active_keys) {
+
+        // Vars
+        var self = this;
+
+        // Only run if 'active_keys' is present
+        if(typeof(active_keys) !== 'undefined') {
+
+            // Iterate through set
+            active_keys.forEach(function(value) {
+                
+                switch(value) {
+                    case 'up':
+                        self.y += -(self.velocity);
+                        break;
+                    case 'down':
+                        self.y += self.velocity;
+                        break;
+                    case 'left':
+                        self.x += -(self.velocity);
+                        break;
+                    case 'right':
+                        self.x += self.velocity;
+                        break;
+                }
+
+            });
+        }
+
+        // Update dot on screen
+        this.#draw();
+        
+    }
 
     // Draw
     // Method used to draw the player in the world view
@@ -49,8 +81,8 @@ export class Player {
         
         // Vars
         var ctx    = this.world_element.getContext("2d");
-        var x      = this.world_element.clientWidth / 2;
-        var y      = this.world_element.clientHeight / 2;
+        var x      = this.x;
+        var y      = this.y;
         var radius = 5;
 
         // Customization

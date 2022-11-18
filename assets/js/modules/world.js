@@ -70,9 +70,15 @@ export class World {
     // This updates the canvas element in HTML with the updates world information
     update() {
 
-      console.log("update");
+      // Vars
+      var element = this.element; 
+      var canvas  = element.getContext('2d');
 
-    }
+      // Canvas
+      canvas.fillStyle = "blue";
+      canvas.fillRect(0, 0, this.element.width, this.element.height);
+
+     }
 
     // Resize 
     // Used to resize the canvas on the event of viewport changes 

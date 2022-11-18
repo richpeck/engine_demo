@@ -2,29 +2,34 @@
 ---
 
 // Libs 
-import { World } from './world.js';     // loads the World (IE backend functionality to calculate position of player etc)
+import { World }  from './world.js';     // loads the World (IE backend functionality to calculate position of player etc)
 import { Player } from './player.js';   // loads the Player
-import { HUD } from './hud.js';         // loads the HUD
+import { HUD }    from './hud.js';      // loads the HUD
 
 // Engine
 // Main application ingress point for the app -- handles user interactivity and dependent objects
 export class Engine {
 
+    // Constants
+    // Used in the engine for various things
+    static get VELOCITY()       { return 10; }
+    static get ANGLE_VELOCITY() { return 5; }
+
     // Constructor
     // Used to populate initial state of the object (IE Engine.world etc)
-    constructor(debug = false, keys = { up: "w", down: "s", left: "a", right: "d" }, velocity_value = 10, angle_velocity_value = 5) {
+    constructor(debug = false, keys = { up: "w", down: "s", left: "a", right: "d" }, velocity_value = this.VELOCITY, angle_velocity_value = this.ANGLE_VELOCITY) {
 
         // Properties
-        this.debug                = debug;
-        this.lastRender           = 0;
-        this.element              = document.getElementById('engine');
-        this.velocity_value       = velocity_value;
-        this.angle_velocity_value = angle_velocity_value;
+        this.debug          = debug;
+        this.lastRender     = 0;
+        this.element        = document.getElementById('engine');
+        this.velocity       = velocity_value;
+        this.angle_velocity = angle_velocity_value;
 
         // Objects
-        this.world  = new World(this.debug, this.element);                                                // engine.world
-        this.player = new Player(this.debug, null, null, this.velocity_value, this.angle_velocity_value); // engine.player
-        this.hud    = new HUD(this.debug);                                                                // engine.hud
+        this.world  = new World(this.debug, this.element);                                              // engine.world
+        this.player = new Player(this.debug, undefined, undefined, this.velocity, this.angle_velocity); // engine.player
+        this.hud    = new HUD(this.debug);                                                              // engine.hud
 
         // Keys
         // Used to map keys to various input triggers within the space (handled by engine)
@@ -93,13 +98,13 @@ export class Engine {
             // This gives us a benchmark against which to manage the 
             if(self.last_render == 0) self.last_render = timestamp;
 
-            // Player
-            // Update player attributes so they are able to traverse the world
-            self.player.update();
-
             // Redraw
             // Updates the canvas with new co-ordinates
-            self.world.update();
+            self.world.update(self.player);
+
+             // Player
+            // Update player attributes so they are able to traverse the world
+            self.player.update(self.active_keys);
 
             // Repeat
             window.requestAnimationFrame(frame);
