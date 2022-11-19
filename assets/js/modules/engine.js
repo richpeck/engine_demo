@@ -102,9 +102,12 @@ export class Engine {
             // Updates the canvas with new co-ordinates
             self.world.update(self.player);
 
-             // Player
+            // Player
             // Update player attributes so they are able to traverse the world
             self.player.update(self.active_keys);
+
+            // HUD
+            //self.hud.update(self.player, self.world);
 
             // Repeat
             window.requestAnimationFrame(frame);

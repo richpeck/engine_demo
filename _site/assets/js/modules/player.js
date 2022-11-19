@@ -4,11 +4,12 @@ export class Player {
 
     // Constructor
     // Used to create the player in the world (EG var player = Player.new(10,10);)
-    constructor(debug = false, x = 0, y = 0, velocity_value = 10, angle_velocity_value = 5) {
+    constructor(debug = false, x = 0, y = 0, velocity_value = 10, angle_velocity_value = 5, radius = 5) {
 
         // Properties
-        this.x              = x;                    // player.x
-        this.y              = y;                    // player.y
+        this.x              = radius;               // player.x
+        this.y              = radius;               // player.y
+        this.radius         = radius;               // player.radius
         this.angle          = 0;                    // player.angle
         this.velocity       = velocity_value;       // player.velocity (forward/backward speed. IE 30)
         this.angle_velocity = angle_velocity_value; // player.angle_velocity (angle traversal speed. IE -0.1)
@@ -83,11 +84,14 @@ export class Player {
         var ctx    = this.world_element.getContext("2d");
         var x      = this.x;
         var y      = this.y;
-        var radius = 5;
+
+        // Used to prevent the 
+        var min_x  = Math.min(x, this.world_element.width - this.radius);
+        var min_y  = Math.min(y, this.world_element.height - this.radius);
 
         // Customization
         ctx.beginPath();
-        ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
+        ctx.arc(Math.max(this.radius, min_x), Math.max(this.radius, min_y), this.radius, 0, 2 * Math.PI, false);
         ctx.fillStyle = "red";
         ctx.fill();
 

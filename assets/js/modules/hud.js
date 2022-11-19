@@ -16,4 +16,8 @@ export class HUD {
     // Required to get the player object 
     init() {}
 
+    // Update
+    // Update the various items in the HUD
+    update() {}
+
   }
