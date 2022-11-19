@@ -1,26 +1,56 @@
 ---
-layout: default
+layout: null
 permalink: /
 ---
 
-{% comment %}
-    The HUD is designed to sit on top of everything and accounts for thing such as the map, ammo tracker etc.
+{% comment %} 
+    RPECK 19/11/2022
+    This could be extracted into a layout, but since it's a single page, kept it in here instead.
 {% endcomment %}
-<div id="hud">
 
-    {% comment %} Messages {% endcomment %}
-    <div class="messages"></div>
-    
-    {% comment %} Info {% endcomment %}
-    <div class="info">
-        <div class="health"></div>
-        <div class="armour"></div>
-        <div class="ammo"></div>
-    </div>
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en-US' }}">
+  <head>
+    <meta charset="UTF-8">
 
-    {% comment %} System {% endcomment %}
-    <div class="system">
-        <div class="fps"></div>
-    </div>
+    {% seo %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="{{ settings.theme.colour.main | default: '#000' }}">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-</div>
+    {% comment %} Favicon {% endcomment %}
+    <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" type="image/x-icon">
+
+    {% comment %} Assets {% endcomment %}
+    <link href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}" rel="stylesheet" >
+    <script src="{{ '/assets/js/main.js?v=' | append: site.github.build_revision | relative_url }}" type="module" defer></script>
+
+  </head>
+  <body>
+
+    <main id="engine" class="main-content" role="main">
+      
+        {% comment %} Comment {% endcomment %}
+        <div id="hud">
+
+            {% comment %} Messages {% endcomment %}
+            <div class="messages"></div>
+            
+            {% comment %} Info {% endcomment %}
+            <div class="info">
+                <div class="health"></div>
+                <div class="armour"></div>
+                <div class="ammo"></div>
+            </div>
+        
+            {% comment %} System {% endcomment %}
+            <div class="system">
+                <div class="fps"></div>
+            </div>
+        
+        </div>
+
+    </main>
+
+  </body>
+</html>
