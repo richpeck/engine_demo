@@ -14,10 +14,11 @@ export class Engine {
     // Used in the engine for various things
     static get VELOCITY()       { return 10; }
     static get ANGLE_VELOCITY() { return 5; }
+    static get HEIGHT()         { return 10; }
 
     // Constructor
     // Used to populate initial state of the object (IE Engine.world etc)
-    constructor(debug = false, keys = { up: "w", down: "s", left: "a", right: "d" }, velocity_value = this.VELOCITY, angle_velocity_value = this.ANGLE_VELOCITY) {
+    constructor(debug = false, keys = { up: "w", down: "s", left: "a", right: "d" }, velocity_value = this.VELOCITY, angle_velocity_value = this.ANGLE_VELOCITY, height = this.HEIGHT) {
 
         // Properties
         this.debug          = debug;
@@ -107,7 +108,7 @@ export class Engine {
             self.player.update(self.active_keys);
 
             // HUD
-            //self.hud.update(self.player, self.world);
+            self.hud.update(self.player, self.world);
 
             // Repeat
             window.requestAnimationFrame(frame);

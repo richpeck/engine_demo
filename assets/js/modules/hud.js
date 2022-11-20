@@ -10,6 +10,15 @@ export class HUD {
         this.element     = document.getElementById('hud');
         this.bottom_area = this.element.querySelector('bottom_area');
 
+        // Player
+        // These are used to define the various values that the HUD will have
+        this.player = {
+            x: this.element.querySelector(".player > .x"),
+            y: this.element.querySelector(".player > .y")
+        }
+
+        // HUD
+
     }
 
     // Init
@@ -18,6 +27,13 @@ export class HUD {
 
     // Update
     // Update the various items in the HUD
-    update() {}
+    update(player, world) {
+
+        // Player
+        // Updates the player's position on the screen
+        this.player['x'].innerText = "X: " + player.x;
+        this.player['y'].innerText = "Y: " + player.y;
+
+    }
 
   }

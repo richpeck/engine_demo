@@ -14,11 +14,22 @@ export class World {
       this.element        = document.getElementById('world') || false;
       this.engine_element = engine_element || document.getElementById('engine');
 
+      // Walls
+      // Temporary definition of walls (collection of x,y points -- heights are static)
+      this.walls = [
+        { x: 0,                  y: 0 },
+        { x: this.element.width, y: 0 },
+        { x: 0,                  y: this.element.height },
+        { x: this.element.width, y: this.element.height }
+      ];
+
     }
 
     // Init 
     // Creates the world, allowing us to populate it with as many items as required
     init() {
+
+      console.log( this.walls );
 
       // Message
       if(this.debug) console.log('{% t engine.messages.world.starting %}');
@@ -44,9 +55,6 @@ export class World {
 
         // Attach to Engine
         this.engine_element.appendChild(this.element);
-
-        // Resize
-        //this.resize();
 
         // Colours
         ctx.fillStyle = "blue";

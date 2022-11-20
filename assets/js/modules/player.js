@@ -68,6 +68,16 @@ export class Player {
                         break;
                 }
 
+                // Min/Max
+                // This is required to ensure we are able to limit the maximum x,y values (so we don't go out of bounds)
+                var min_x  = Math.min(self.x, self.world_element.width - self.radius);
+                var min_y  = Math.min(self.y, self.world_element.height - self.radius);
+
+                // X, Y
+                // Updates the co-ordinates to ensure we aren't too low (IE negatives)
+                self.x = Math.max(self.radius, min_x);
+                self.y = Math.max(self.radius, min_y);
+
             });
         }
 
@@ -85,13 +95,9 @@ export class Player {
         var x      = this.x;
         var y      = this.y;
 
-        // Used to prevent the 
-        var min_x  = Math.min(x, this.world_element.width - this.radius);
-        var min_y  = Math.min(y, this.world_element.height - this.radius);
-
         // Customization
         ctx.beginPath();
-        ctx.arc(Math.max(this.radius, min_x), Math.max(this.radius, min_y), this.radius, 0, 2 * Math.PI, false);
+        ctx.arc(x, y, this.radius, 0, 2 * Math.PI, false);
         ctx.fillStyle = "red";
         ctx.fill();
 
