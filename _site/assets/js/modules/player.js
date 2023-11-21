@@ -1,10 +1,21 @@
+/*
+    RPECK 21/11/2023 - Entity
+    This is the primary object that we can use to interface with inside the system - player, wall and other objects can be superclassed from this
+*/
+
+// RPECK 21/11/2023 - Libs
+import { Entity } from './entity.js';
+
 // Player
 // Class to invoke the player relative to the world in the engine
-export class Player {
+export class Player extends Entity {
 
     // Constructor
     // Used to create the player in the world (EG var player = Player.new(10,10);)
-    constructor(debug = false, x = 0, y = 0, velocity_value = 10, angle_velocity_value = 5, radius = 5) {
+    constructor(engine, x = 0, y = 0, velocity_value = 10, angle_velocity_value = 5, radius = 5) {
+
+        // RPECK 21/11/2023 - Superclassed from Entity
+        super();
 
         // Properties
         this.x              = radius;               // player.x

@@ -4,8 +4,8 @@
 */
 
 /* Libs */
-@import "hud.css";
-@import "world.css";
+@import "./hud.css";
+@import "./world.css";
 
 /* Main */
 /* General styling for different parts of the app */

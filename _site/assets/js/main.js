@@ -1,20 +1,17 @@
+//////////////////////////////
+//////////////////////////////
+
+// RPECK 21/11/2023 - Import the Engine JS so we can bind to the Custom Elements API etc
+// This is the new ingress point, allowing us to extend the functionality without relying on timing etc
+
+//////////////////////////////
+//////////////////////////////
+
 // Libs 
 import { Engine } from './modules/engine.js'; // loads the engine
 
-// Main
-// Primary ingress point and should be used to provide functionality for the app.
-document.addEventListener("DOMContentLoaded", function(event) { 
+// Assign Engine to custom HTML element
+customElements.define('main-engine', Engine);
 
-    // Debug
-    const debug = true; // Turn debug on or off (bool)
-
-    // Vars
-    const keys = { up: 'ArrowUp', down: 'ArrowDown', left: 'ArrowLeft', right: 'ArrowRight' }
-
-    // Engine
-    var engine = new Engine(debug, keys);
-
-    // Initialize
-    engine.init();
-
-});
+//////////////////////////////
+//////////////////////////////

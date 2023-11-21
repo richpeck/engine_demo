@@ -1,86 +1,66 @@
 // Libs 
-import { World }  from './world.js';     // loads the World (IE backend functionality to calculate position of player etc)
-import { Player } from './player.js';   // loads the Player
+import { World }  from './world.js';    // loads the World (IE backend functionality to calculate position of player etc)
 import { HUD }    from './hud.js';      // loads the HUD
+import { Config } from './config.js';   // load config options (extracted 21/11/2023)
 
 // Engine
 // Main application ingress point for the app -- handles user interactivity and dependent objects
-export class Engine {
+export class Engine extends HTMLElement {
 
-    // Constants
-    // Used in the engine for various things
-    static get VELOCITY()       { return 10; }
-    static get ANGLE_VELOCITY() { return 5; }
-    static get HEIGHT()         { return 10; }
+    // Observed Attributes
+    // Provides the ability to track various attributes inside the system
+    // --
+    // https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements
+    static observedAttributes = [];
 
     // Constructor
     // Used to populate initial state of the object (IE Engine.world etc)
-    constructor(debug = false, keys = { up: "w", down: "s", left: "a", right: "d" }, velocity_value = this.VELOCITY, angle_velocity_value = this.ANGLE_VELOCITY, height = this.HEIGHT) {
+    constructor() {
+        
+        // RPECK 21/11/2023 - Super
+        // Necessary to interface with the Custom Elements API
+        super();
 
-        // Properties
-        this.debug          = debug;
-        this.lastRender     = 0;
-        this.element        = document.getElementById('engine');
-        this.velocity       = velocity_value;
-        this.angle_velocity = angle_velocity_value;
+        // RPECK 21/11/2023 - Config
+        // General set of options which can be used to provide values to the system
+        this.config = new Config;
 
-        // Objects
-        this.world  = new World(this.debug, this.element);                                              // engine.world
-        this.player = new Player(this.debug, undefined, undefined, this.velocity, this.angle_velocity); // engine.player
-        this.hud    = new HUD(this.debug);                                                              // engine.hud
-
-        // Keys
-        // Used to map keys to various input triggers within the space (handled by engine)
-        // https://stackoverflow.com/a/44213036/1143732
-        this.keys = { up: keys["up"], down: keys["down"], left: keys["left"], right:  keys["right"] };
-        Object.freeze(keys); // ensure nobody can change it
-
-        // Inputs
+        // Various Items
         // This is used to capture current active keys (IE "up" and "left" - allowing us to define the velocity in the loop)
         this.active_keys = new Set; // this is ES6 only and allows us to manipulate the values (change to array etc) easier
 
+        // RPECK 21/11/2023 - Create shadow root
+        // This allows us to bind different objects etc
+        //this.shadowRoot = this.attachShadow({mode: 'open'});
+
     }
 
-    // Init
+    // Connected callback
     // Invokes the engine and allows us to create the conditions through which it will start to run.
-    init() {
+    connectedCallback() {
 
-        // Message
-        if(this.debug) console.log('Engine Started');
+        // RPECK 21/11/2023 - World
+        // Invokes the world object into this.world
+        //this.world = new World;
 
-        // Input
-        // Activates inputs, allowing us to trigger actions depending on what the user does
-        this.input();
+        // RPECK 21/11/2023 - HUD
+        // Invokes the HUD element into the engine
+        //this.hud = new HUD;
 
-        // World
-        // Builds and populates the world (IE draws canvas etc)
-        this.world.init();
-
-        // Player 
-        // Invokes player object and populates them in the world
-        this.player.init( this.world.element ); // requires the 'world' element
-
-        // HUD 
-        // Invokes the HUD and populates with initial data
-        this.hud.init();
-        
         // Loop
         // Runs the loop using the Engine as the basis for doing so (IE gives us access to this object)
-        this.loop();
+        //this.#loop();
 
-    }
+        // Handlers
+        // Extracted into function so don't need to replicate functionality
+        window.addEventListener("keydown",  this.#update_inputs);
+        window.addEventListener("keyup",    this.#update_inputs);
 
-    // Stop
-    // Closes the engine, stops and functionality and brings the application to a halt
-    stop() {
-
-        // Message
-        if(this.debug) console.log('Engine Stopped');
     }
 
     // Loop
     // This is the main loop to perform logic for the engine
-    loop() {
+    #loop = () => {
 
         // Message
         if(this.debug) console.log('Loop Active');
@@ -118,56 +98,34 @@ export class Engine {
 
     // Inputs 
     // Used to capture user inputs (keyboard)
-    input() {
-
-        // Vars
-        var self     = this;
-        var messages = {
-            up:     'Up Pressed',
-            down:   'Down Pressed',
-            left:   'Left Pressed',
-            right:  'Right Pressed'
-        }
-
-        // Inputs 
-        // Track inputs from the user and map to the keys defined in the constructor
-        // https://stackoverflow.com/a/60072661/1143732
-        function update_inputs(e) {
+    // --
+    // https://stackoverflow.com/a/75662336/1143732
+    #update_inputs = (e) => {
             
-            // Vars 
-            var keys    = Object.keys(self.keys);
-            var values  = Object.values(self.keys);
-            var action  = e.type;
+        // Vars 
+        var keys    = Object.keys(   this.config.keys );
+        var values  = Object.values( this.config.keys );
+        var action  = e.type;
+
+        // Logic
+        // First tests to see if the 'pressed' key is in our key list and then triggers the appropriate functionality 
+        if(values.includes(e.key)) {;
+
+            // Vars
+            var index     = values.indexOf(e.key);
+            var direction = keys[index];
 
             // Logic
-            // First tests to see if the 'pressed' key is in our key list and then triggers the appropriate functionality 
-            if(values.includes(e.key)) {;
-
-                // Vars
-                var index     = values.indexOf(e.key);
-                var direction = keys[index];
-
-                // Debug
-                if(self.debug) console.log( messages[direction] );
-                
-                // Logic
-                switch(action) {
-                    case 'keydown':
-                        self.active_keys.add(direction); 
-                        break;
-                    case 'keyup':
-                        self.active_keys.delete(direction); 
-                        break;
-                }
-
+            switch(action) {
+                case 'keydown':
+                    this.active_keys.add(direction); 
+                    break;
+                case 'keyup':
+                    this.active_keys.delete(direction); 
+                    break;
             }
 
         }
-
-        // Handlers
-        // Extracted into function so don't need to replicate functionality
-        window.addEventListener("keydown", update_inputs);
-        window.addEventListener("keyup", update_inputs);     
 
     }
 

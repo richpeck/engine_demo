@@ -16,8 +16,8 @@ baseurl: /engine_demo # required to get relative_url working with our custom bui
 
 # General
 # Give us the ability to manage the overall structuer of the site etc
-title: JS Engine Demo
-description: Demonstration engine for basic 3D engine
+title: JS Engine
+description: Test engine for basic 3D engine
 
 # Translations
 # Allows us to use translatable text throughout the app

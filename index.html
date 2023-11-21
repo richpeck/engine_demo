@@ -28,35 +28,13 @@ permalink: /
   </head>
   <body>
 
-    <main id="engine" class="main-content" role="main">
-      
-        {% comment %} Comment {% endcomment %}
-        <div id="hud">
+    {%- comment -%}
 
-            {% comment %} Messages {% endcomment %}
-            <div class="messages"></div>
+      RPECK 21/11/2023 - Changed system to use custom HTML element (allows for easier binding + structure)
+      https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements
 
-            {% comment %} Player {% endcomment %} 
-            <div class="player">
-              <span class="x"></span>
-              <span class="y"></span>
-            </div>
-            
-            {% comment %} Info {% endcomment %}
-            <div class="info">
-                <span class="health"></span>
-                <span class="armour"></span>
-                <span class="ammo"></span>
-            </div>
-        
-            {% comment %} System {% endcomment %}
-            <div class="system">
-                <span class="fps"></span>
-            </div>
-        
-        </div>
-
-    </main>
+    {%- endcomment -%}
+    <main-engine></main-engine>
 
   </body>
 </html>

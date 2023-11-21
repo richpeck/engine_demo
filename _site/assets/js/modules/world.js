@@ -1,15 +1,13 @@
 // World
-// Main processor for the map / worldview of the app -- computes map data and provides interface to user
+// Main processor for the map / worldview of the app -- computes map data and provides interface to user (basically manages all of the logic for the various entities, including the player)
 export class World {
 
     // Constructor
     // Used to populate the world and allow us to interact with it
-    constructor(debug = false, engine_element = null) {
+    constructor(engine) {
 
       // Vars
-      this.debug          = debug;
-      this.element        = document.getElementById('world') || false;
-      this.engine_element = engine_element || document.getElementById('engine');
+      this.element = document.getElementById('world') || false;
 
       // Walls
       // Temporary definition of walls (collection of x,y points -- heights are static)
