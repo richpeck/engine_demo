@@ -25,13 +25,18 @@ export class Engine extends HTMLElement {
         // General set of options which can be used to provide values to the system
         this.config = new Config;
 
+        // RPECK 21/11/2023 - World
+        // Invokes the world object into this.world
+        this.world = new World(this);
+
+        // RPECK 21/11/2023 - HUD
+        // Invokes the HUD element into the engine
+        this.hud = new HUD(this);
+
         // Various Items
         // This is used to capture current active keys (IE "up" and "left" - allowing us to define the velocity in the loop)
         this.active_keys = new Set; // this is ES6 only and allows us to manipulate the values (change to array etc) easier
-
-        // RPECK 21/11/2023 - Create shadow root
-        // This allows us to bind different objects etc
-        //this.shadowRoot = this.attachShadow({mode: 'open'});
+        this.last_render = 0;       // used in the game loop below
 
     }
 
@@ -39,22 +44,14 @@ export class Engine extends HTMLElement {
     // Invokes the engine and allows us to create the conditions through which it will start to run.
     connectedCallback() {
 
-        // RPECK 21/11/2023 - World
-        // Invokes the world object into this.world
-        //this.world = new World;
-
-        // RPECK 21/11/2023 - HUD
-        // Invokes the HUD element into the engine
-        //this.hud = new HUD;
-
-        // Loop
-        // Runs the loop using the Engine as the basis for doing so (IE gives us access to this object)
-        //this.#loop();
-
-        // Handlers
+        // RPECK 22/11/2023 - Input handlers
         // Extracted into function so don't need to replicate functionality
-        window.addEventListener("keydown",  this.#update_inputs);
-        window.addEventListener("keyup",    this.#update_inputs);
+        window.addEventListener('keydown',  this.#input);
+        window.addEventListener('keyup',    this.#input);
+
+        // RPECK 22/11/2023 - Start Loop
+        // This is used to hook into the system
+        this.addEventListener('loopStart', this.#loop);
 
     }
 
@@ -62,30 +59,17 @@ export class Engine extends HTMLElement {
     // This is the main loop to perform logic for the engine
     #loop = () => {
 
-        // Message
-        if(this.debug) console.log('Loop Active');
-
-        // Vars
-        var self = this;
-
         // Function
         // This was created because you, basically, need to reference the loop constantly
-        function frame(timestamp){
+        const frame = (timestamp) => {
 
             // Last render
-            // This gives us a benchmark against which to manage the 
+            // This gives us a benchmark against which to manage the FPS
             if(self.last_render == 0) self.last_render = timestamp;
 
-            // Redraw
-            // Updates the canvas with new co-ordinates
-            self.world.update(self.player);
-
-            // Player
-            // Update player attributes so they are able to traverse the world
-            self.player.update(self.active_keys);
-
-            // HUD
-            self.hud.update(self.player, self.world);
+            // RPECK 22/11/2023 - Trigger Event
+            // This should have all of the other classes binded to it
+            this.dispatchEvent( new Event('loopUpdate') );
 
             // Repeat
             window.requestAnimationFrame(frame);
@@ -100,11 +84,11 @@ export class Engine extends HTMLElement {
     // Used to capture user inputs (keyboard)
     // --
     // https://stackoverflow.com/a/75662336/1143732
-    #update_inputs = (e) => {
+    #input = (e) => {
             
         // Vars 
-        var keys    = Object.keys(   this.config.keys );
-        var values  = Object.values( this.config.keys );
+        var keys    = Object.keys(this.config.keys);
+        var values  = Object.values(this.config.keys);
         var action  = e.type;
 
         // Logic
@@ -124,6 +108,13 @@ export class Engine extends HTMLElement {
                     this.active_keys.delete(direction); 
                     break;
             }
+
+            // RPECK 22/11/2023 - Event
+            // Used to hook into with other parts of the app
+            var event = new CustomEvent('keyChange', { detail: this.active_keys });
+
+            // RPECK 22/11/2023 - Trigger event
+            this.dispatchEvent(event);
 
         }
 

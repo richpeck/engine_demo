@@ -25,30 +25,6 @@ export class Player extends Entity {
         this.velocity       = velocity_value;       // player.velocity (forward/backward speed. IE 30)
         this.angle_velocity = angle_velocity_value; // player.angle_velocity (angle traversal speed. IE -0.1)
 
-        // Extra
-        this.world_element = undefined;
-
-    }
-
-    // Init
-    // Required to get the player object 
-    init(world_element = undefined) {
-
-        // Starting Message
-        if(this.debug) console.log('{% t engine.messages.player.starting %}');
-
-        // Checking World
-        if(this.debug) console.log('{% t engine.messages.player.checking_world %}');
-
-        // If World is not present
-        if(!world_element) { return false; } else { this.world_element = world_element; }
-
-        // Draw initial
-        this.#draw();
-
-        // Started Message
-        if(this.debug) console.log('{% t engine.messages.player.started %}');
-
     }
 
     // Update

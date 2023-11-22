@@ -9,35 +9,22 @@ export class World {
     // Used to populate the world and allow us to interact with it
     constructor(engine) {
 
-      // Vars
-      this.element = document.getElementById('world') || false;
+      // Element
+      this.engine = engine; // required to populate the rest of the class
 
-      // Walls
-      // Temporary definition of walls (collection of x,y points -- heights are static)
-      this.walls = [
-        { x: 0,                  y: 0 },
-        { x: this.element.width, y: 0 },
-        { x: 0,                  y: this.element.height },
-        { x: this.element.width, y: this.element.height }
-      ];
+      // RPECK 22/11/2023 - Handlers
+      // We want to keep everything prim, so this should update as per when events are triggered
+      engine.addEventListener('loopStart',  this.init);
+      engine.addEventListener('loopUpdate', this.update);
 
     }
 
-    // Init 
-    // Creates the world, allowing us to populate it with as many items as required
-    init() {
+    // RPECK 22/11/2023 - Set up
+    // Sets up the element in the world
+    init = () => {
 
-      console.log( this.walls );
-
-      // Message
-      if(this.debug) console.log('{% t engine.messages.world.starting %}');
-
-      // Element
-      // If element does not exists, populate it in the DOM
+      // RPECK 22/11/2023 - If the element is not present, declare 
       if(!this.element) {
-
-        // Debug
-        if(this.debug) console.log('{% t engine.messages.world.no_element %}');
         
         // Create Element
         this.element = document.createElement("canvas");
@@ -52,7 +39,7 @@ export class World {
         var ctx = this.element.getContext("2d");
 
         // Attach to Engine
-        this.engine_element.appendChild(this.element);
+        this.engine.appendChild(this.element);
 
         // Colours
         ctx.fillStyle = "blue";
@@ -62,19 +49,13 @@ export class World {
         // This is in case the viewport is changed for some reason
         window.addEventListener('resize', this.resize, false);
 
-        // Debug
-        if(this.debug) console.log('{% t engine.messages.world.element_created %}');
-
       }
-
-      // Message
-      if(this.debug) console.log('{% t engine.messages.world.started %}');
 
     }
 
     // Update
     // This updates the canvas element in HTML with the updates world information
-    update() {
+    update = () => {
 
       // Vars
       var element = this.element; 
