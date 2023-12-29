@@ -1,7 +1,6 @@
 // Libs 
-import { World }  from './world.js';    // loads the World (IE backend functionality to calculate position of player etc)
-import { HUD }    from './hud.js';      // loads the HUD
-import { Config } from './config.js';   // load config options (extracted 21/11/2023)
+import { World }  from './lib/world.js'; // loads the World (IE environment into which the entities are loaded and managed)
+import { Config } from './config.js';    // load config options (extracted 21/11/2023)
 
 // Engine
 // Main application ingress point for the app -- handles user interactivity and dependent objects
@@ -29,10 +28,6 @@ export class Engine extends HTMLElement {
         // Invokes the world object into this.world
         this.world = new World(this);
 
-        // RPECK 21/11/2023 - HUD
-        // Invokes the HUD element into the engine
-        this.hud = new HUD(this);
-
         // Various Items
         // This is used to capture current active keys (IE "up" and "left" - allowing us to define the velocity in the loop)
         this.active_keys = new Set; // this is ES6 only and allows us to manipulate the values (change to array etc) easier
@@ -52,6 +47,10 @@ export class Engine extends HTMLElement {
         // RPECK 22/11/2023 - Start Loop
         // This is used to hook into the system
         this.addEventListener('loopStart', this.#loop);
+
+        // RPECK 22/11/2023 - Set the loop to start
+        // Allows us to ensure that we are getting everything sorted first
+        //this.dispatchEvent( new Event('loopStart') );
 
     }
 
